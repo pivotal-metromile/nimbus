@@ -47,9 +47,13 @@ NI_FIX_CATEGORY_BUG(NSStringNimbusCore)
 - (CGFloat)heightWithFont:(UIFont*)font
        constrainedToWidth:(CGFloat)width
             lineBreakMode:(NSLineBreakMode)lineBreakMode {
-  return [self sizeWithFont:font
-          constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
-              lineBreakMode:lineBreakMode].height;
+    NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+
+    return CGRectGetHeight([self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                              options:0
+                                           attributes:@{NSFontAttributeName: font, NSParagraphStyleAttributeName: paragraphStyle}
+                                              context:nil]);
 }
 // COV_NF_END
 

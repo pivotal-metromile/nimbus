@@ -294,9 +294,7 @@
                                | UIViewAutoresizingFlexibleHeight);
   self.webView.scalesPageToFit = YES;
 
-  if ([UIColor respondsToSelector:@selector(underPageBackgroundColor)]) {
-    self.webView.backgroundColor = [UIColor underPageBackgroundColor];
-  }
+  self.webView.backgroundColor = [UIColor lightGrayColor];
 
   [self.view addSubview:self.webView];
 

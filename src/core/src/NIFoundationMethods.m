@@ -88,11 +88,23 @@ CGSize NISizeOfStringWithLabelProperties(NSString *string, CGSize constrainedToS
   CGFloat lineHeight = font.lineHeight;
   CGSize size = CGSizeZero;
 
+  NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+  paragraphStyle.lineBreakMode = lineBreakMode;
+
   if (numberOfLines == 1) {
-    size = [string sizeWithFont:font forWidth:constrainedToSize.width lineBreakMode:lineBreakMode];
+      size = [string boundingRectWithSize:CGSizeMake(constrainedToSize.width, CGFLOAT_MAX)
+                                  options:0
+                               attributes:@{NSFontAttributeName: font,
+                                            NSParagraphStyleAttributeName: paragraphStyle}
+                                  context:nil].size;
 
   } else {
-    size = [string sizeWithFont:font constrainedToSize:constrainedToSize lineBreakMode:lineBreakMode];
+      size = [string boundingRectWithSize:constrainedToSize
+                                  options:0
+                               attributes:@{NSFontAttributeName: font,
+                                            NSParagraphStyleAttributeName: paragraphStyle}
+                                  context:nil].size;
+
     if (numberOfLines > 0) {
       size.height = MIN(size.height, numberOfLines * lineHeight);
     }
