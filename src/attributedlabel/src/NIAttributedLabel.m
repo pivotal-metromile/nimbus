@@ -1065,7 +1065,7 @@ CGSize NISizeOfAttributedStringConstrainedToSize(NSAttributedString *attributedS
   self.touchedLink = [self linkAtPoint:point];
 
   if (self.touchedLink) {
-    [[UIApplication sharedApplication] openUrl:self.touchedLink.URL.absoluteURL];
+    [[UIApplication sharedApplication] openURL:self.touchedLink.URL.absoluteURL];
   }
 
   self.touchedLink = nil;
